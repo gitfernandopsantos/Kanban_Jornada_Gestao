@@ -12,12 +12,12 @@ Backend: Implementado utilizando .NET Core, com persistência de dados em um ban
 Frontend: Desenvolvido com Angular, garantindo uma interface de usuário dinâmica e responsiva.
 
 # Funcionalidades
-# Cadastrar Tarefa: Permite ao usuário adicionar novas tarefas à lista.
-# Editar Tarefa: Permite ao usuário modificar detalhes de uma tarefa existente.
-# Remover Tarefa: Permite ao usuário deletar uma tarefa da lista.
-# Status da Tarefa: Cada tarefa deve possuir um status que indique sua situação atual (ex: pendente, em progresso, concluída).
-# Visualização da Lista de Tarefas: Exibe todas as tarefas cadastradas.
-# Filtragem de Tarefas: Permite ao usuário filtrar a lista de tarefas com base em seu status.
+ Cadastrar Tarefa: Permite ao usuário adicionar novas tarefas à lista.
+ Editar Tarefa: Permite ao usuário modificar detalhes de uma tarefa existente.
+ Remover Tarefa: Permite ao usuário deletar uma tarefa da lista.
+ Status da Tarefa: Cada tarefa deve possuir um status que indique sua situação atual (ex: pendente, em progresso, concluída).
+ Visualização da Lista de Tarefas: Exibe todas as tarefas cadastradas.
+ Filtragem de Tarefas: Permite ao usuário filtrar a lista de tarefas com base em seu status.
 
 # Tecnologias Utilizadas
 Backend: .NET Core
