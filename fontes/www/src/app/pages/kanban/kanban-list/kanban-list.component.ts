@@ -35,11 +35,11 @@ export class KanbanListComponent implements OnInit {
 
         this.menuItems = [
             {
-                label: 'List actions', items: [
+                label: 'Lista de ações', items: [
                     { separator: true },
-                    { label: 'Copy list', command: () => this.onCopy(this.list) },
+                    { label: 'Copiar Coluna', command: () => this.onCopy(this.list) },
                     {
-                        label: 'Remove list', command: () => {
+                        label: 'Remover Coluna', command: () => {
                             if (this.list.listId) {
                                 this.onDelete(this.list.listId)
                             }

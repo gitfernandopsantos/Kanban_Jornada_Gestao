@@ -118,18 +118,6 @@ export class KanbanSidebarComponent implements OnDestroy {
         this.formValue = { id: '', taskList: { title: 'Untitled Task List', tasks: [] } };
     }
 
-    addTaskList() {
-        this.showTaskContainer = !this.showTaskContainer;
-
-        if (!this.showTaskContainer) {
-            return;
-        }
-        else if (!this.formValue.taskList) {
-            let id = this.kanbanService.generateId();
-            this.formValue = { ...this.formValue, taskList: { id: id, title: 'Untitled Task List', tasks: [] } };
-        }
-    }
-
     addTask(event: Event) {
         event.preventDefault();
         if (this.taskContent.trim().length > 0) {
