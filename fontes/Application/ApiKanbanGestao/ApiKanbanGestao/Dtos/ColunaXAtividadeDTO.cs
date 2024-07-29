@@ -2,7 +2,7 @@
 
 namespace ApiKanbanGestao.Dtos
 {
-    public class ColunaXAtividade
+    public class ColunaXAtividadeDTO
     {
         public int IdColunaXAtividade { get; set; }
         public Atividade Atividade { get; set; }
