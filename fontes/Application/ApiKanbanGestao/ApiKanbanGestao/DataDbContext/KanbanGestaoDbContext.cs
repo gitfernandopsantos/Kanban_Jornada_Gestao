@@ -1,4 +1,5 @@
-﻿using ApiKanbanGestao.Entity;
+﻿using ApiKanbanGestao.DataDbContext.Map;
+using ApiKanbanGestao.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiKanbanGestao.DataDbContext
@@ -18,6 +19,10 @@ namespace ApiKanbanGestao.DataDbContext
         public DbSet<ColunaXAtividade> ColunaXAtividade { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("public");
+            modelBuilder.ApplyConfiguration(new AtividadeMap());
+            modelBuilder.ApplyConfiguration(new ColunaMap());
+            modelBuilder.ApplyConfiguration(new ColunaXAtividadeMap());
             base.OnModelCreating(modelBuilder);
         }
     }

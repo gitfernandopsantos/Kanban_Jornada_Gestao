@@ -3,15 +3,10 @@
     public class ColunaXAtividade
     {
         public int IdColunaXAtividade { get; set; }
-        public Atividade Atividade { get; set; }
-        public Coluna Coluna { get; set; }
-        
+        public int AtividadeId { get; set; }
+        public int ColunaId { get; set; }
+        public virtual Atividade Atividade { get; set; }
+        public virtual Coluna Coluna { get; set; }
 
-        public ColunaXAtividade(int idColunaXAtividade, Atividade atividade, Coluna coluna)
-        {
-            IdColunaXAtividade = idColunaXAtividade;
-            Atividade = atividade;
-            Coluna = coluna;
-        }
     }
 }

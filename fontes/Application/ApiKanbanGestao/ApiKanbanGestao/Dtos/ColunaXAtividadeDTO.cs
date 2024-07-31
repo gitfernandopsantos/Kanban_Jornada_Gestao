@@ -6,6 +6,6 @@ namespace ApiKanbanGestao.Dtos
     {
         public int IdColunaXAtividade { get; set; }
         public Atividade Atividade { get; set; }
-        public Coluna Coluna { get; set; }
+        public ColunaXAtividade Coluna { get; set; }
     }
 }

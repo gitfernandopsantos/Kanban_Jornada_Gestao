@@ -7,8 +7,8 @@ namespace ApiKanbanGestao.Interfaces.IRepository
     {
         Task<List<ColunaDTO>> GetAllColumns();
         Task<ColunaDTO> GetAllColumnById(int idAtividade);
-        Task<ColunaDTO> AddColumn(Coluna coluna);
-        Task<ColunaDTO> EditColumn(Coluna coluna, int idColuna);
+        Task<ColunaDTO> AddColumn(ColunaXAtividade coluna);
+        Task<ColunaDTO> EditColumn(ColunaXAtividade coluna, int idColuna);
         Task<bool> DeleteColumn(int idColuna);
     }
 }

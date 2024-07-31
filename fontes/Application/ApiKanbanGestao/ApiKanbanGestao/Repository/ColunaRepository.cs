@@ -1,4 +1,5 @@
-﻿using ApiKanbanGestao.Dtos;
+﻿using ApiKanbanGestao.DataDbContext;
+using ApiKanbanGestao.Dtos;
 using ApiKanbanGestao.Entity;
 using ApiKanbanGestao.Interfaces.IRepository;
 
@@ -6,7 +7,13 @@ namespace ApiKanbanGestao.Repository
 {
     public class ColunaRepository : IColunaRepository
     {
-        public Task<ColunaDTO> AddColumn(Coluna coluna)
+        private readonly KanbanGestaoDbContext _kanbanGestaoDb;
+
+        public ColunaRepository(KanbanGestaoDbContext kanbanGestaoDbContext)
+        {
+            _kanbanGestaoDb = kanbanGestaoDbContext;
+        }
+        public Task<ColunaDTO> AddColumn(ColunaXAtividade coluna)
         {
             throw new NotImplementedException();
         }
@@ -16,7 +23,7 @@ namespace ApiKanbanGestao.Repository
             throw new NotImplementedException();
         }
 
-        public Task<ColunaDTO> EditColumn(Coluna coluna, int idColuna)
+        public Task<ColunaDTO> EditColumn(ColunaXAtividade coluna, int idColuna)
         {
             throw new NotImplementedException();
         }

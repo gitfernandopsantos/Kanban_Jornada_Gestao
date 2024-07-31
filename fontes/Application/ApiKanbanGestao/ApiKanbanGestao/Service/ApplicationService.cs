@@ -11,7 +11,7 @@ namespace ApiKanbanGestao.Service
             throw new NotImplementedException();
         }
 
-        public Task<ColunaDTO> AddColumn(Coluna coluna)
+        public Task<ColunaDTO> AddColumn(ColunaXAtividade coluna)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace ApiKanbanGestao.Service
             throw new NotImplementedException();
         }
 
-        public Task<ColunaDTO> EditColumn(Coluna coluna, int idColuna)
+        public Task<ColunaDTO> EditColumn(ColunaXAtividade coluna, int idColuna)
         {
             throw new NotImplementedException();
         }
