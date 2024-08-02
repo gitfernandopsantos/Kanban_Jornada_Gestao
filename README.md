@@ -1,9 +1,6 @@
 # Kanban_Jornada_Gestao
 Desafio Full Stack Developer
 
-Descrição do Desafio
-Este desafio foi projetado para avaliar suas habilidades e competências no desenvolvimento de aplicações Full Stack. Você será responsável pela criação de uma aplicação web completa que permita a gestão de uma Lista de Tarefas, envolvendo tanto a construção do frontend quanto do backend.
-
 # Objetivo
 Desenvolver uma aplicação web interativa e responsiva que permita aos usuários gerenciar suas tarefas diárias. A aplicação deve incluir funcionalidades de cadastro, edição, remoção e filtragem de tarefas, além de exibir a lista de tarefas com seus respectivos status.
 
