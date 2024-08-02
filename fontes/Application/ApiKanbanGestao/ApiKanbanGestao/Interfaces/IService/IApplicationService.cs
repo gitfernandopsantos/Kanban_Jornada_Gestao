@@ -6,9 +6,9 @@ namespace ApiKanbanGestao.Interfaces.IService
     public interface IApplicationService
     {
         #region Métodos Atividades
-        Task<List<AtividadeDTO>> GetAllActivity();
-        Task<AtividadeDTO> GetAllActivityById(int idAtividade);
-        Task<AtividadeDTO> AddActivity(Atividade atividade);
+        Task<List<Atividade>> GetAllActivity();
+        Task<Atividade> GetAllActivityById(int idAtividade);
+        Task<Atividade> AddActivity(Atividade atividade);
         Task<AtividadeDTO> EditActivity(Atividade atividade, int idAtividade);
         Task<bool> DeleteActivity(int idAtividade);
         #endregion

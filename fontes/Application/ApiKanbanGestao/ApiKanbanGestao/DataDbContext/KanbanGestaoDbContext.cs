@@ -14,9 +14,9 @@ namespace ApiKanbanGestao.DataDbContext
         {
             
         }
-        public DbSet<Coluna> Coluna { get; set; }
-        public DbSet<Atividade> Atividade { get; set; }
-        public DbSet<ColunaXAtividade> ColunaXAtividade { get; set; }
+        public DbSet<Coluna> Colunas { get; set; }
+        public DbSet<Atividade> Atividades { get; set; }
+        public DbSet<ColunaXAtividade> ColunasXAtividades { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");

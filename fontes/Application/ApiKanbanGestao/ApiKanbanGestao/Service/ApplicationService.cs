@@ -1,14 +1,38 @@
 ﻿using ApiKanbanGestao.Dtos;
 using ApiKanbanGestao.Entity;
+using ApiKanbanGestao.Interfaces.IRepository;
 using ApiKanbanGestao.Interfaces.IService;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ApiKanbanGestao.Service
 {
     public class ApplicationService : IApplicationService
     {
-        public Task<AtividadeDTO> AddActivity(Atividade atividade)
+        private readonly IAtividadeRepository _atividadeRepository;
+        private readonly IColunaRepository _colunaRepository;
+        private readonly IColunaXAtividadeRepository _colunaXAtividadeRepository;
+        public ApplicationService(IAtividadeRepository atividadeRepository, IColunaRepository colunaRepository, IColunaXAtividadeRepository colunaXAtividadeRepository)
         {
-            throw new NotImplementedException();
+            _atividadeRepository = atividadeRepository;
+            _colunaRepository = colunaRepository;
+            _colunaXAtividadeRepository = colunaXAtividadeRepository;
+        }
+        public Task<Atividade> AddActivity(Atividade atividade)
+        {
+            try
+            {
+                if (_atividadeRepository != null)
+                {
+
+                }
+                throw new Exception("Não foi possível encontrar o repositório.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
         }
 
         public Task<ColunaDTO> AddColumn(ColunaXAtividade coluna)
@@ -51,14 +75,55 @@ namespace ApiKanbanGestao.Service
             throw new NotImplementedException();
         }
 
-        public Task<List<AtividadeDTO>> GetAllActivity()
+        public Task<List<Atividade>> GetAllActivity()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (_atividadeRepository != null)
+                {
+                    var listActivity = _atividadeRepository.GetAllActivity();
+                    if (listActivity != null)
+                    {
+                        return listActivity;
+                    }
+                    else
+                    {
+                        throw new Exception("Nenhuma atividade encontrada no banco de dados.");
+                    }
+                }
+                throw new Exception("Não foi possível encontrar o repositório.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
-        public Task<AtividadeDTO> GetAllActivityById(int idAtividade)
+        public Task<Atividade> GetAllActivityById(int idAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (_atividadeRepository != null)
+                {
+                    if (idAtividade <= 0)
+                    {
+                        throw new Exception("Por favor, insira um ID válido.");
+                    }
+                    var activity = _atividadeRepository.GetAllActivityById(idAtividade);
+                    if(activity.Result == null && activity.IsCompletedSuccessfully == true)
+                    {
+                        throw new Exception("Desculpe, não encontramos essa atividade no banco de dados.");
+                    }
+                    return activity;
+                }
+                throw new Exception("Não foi possível encontrar o repositório");
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public Task<ColunaDTO> GetAllColumnById(int idAtividade)

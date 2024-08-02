@@ -2,6 +2,7 @@
 using ApiKanbanGestao.Dtos;
 using ApiKanbanGestao.Entity;
 using ApiKanbanGestao.Interfaces.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiKanbanGestao.Repository
 {
@@ -12,7 +13,7 @@ namespace ApiKanbanGestao.Repository
         {
             _kanbanGestaoDb = kanbanGestaoDbContext;
         }
-        public Task<AtividadeDTO> AddActivity(Atividade atividade)
+        public Task<Atividade> AddActivity(Atividade atividade)
         {
             throw new NotImplementedException();
         }
@@ -22,19 +23,36 @@ namespace ApiKanbanGestao.Repository
             throw new NotImplementedException();
         }
 
-        public Task<AtividadeDTO> EditActivity(Atividade atividade, int idAtividade)
+        public async Task<AtividadeDTO> EditActivity(Atividade atividade, int idAtividade)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<AtividadeDTO>> GetAllActivity()
+        public async Task<List<Atividade>> GetAllActivity()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = await _kanbanGestaoDb.Atividades.ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<AtividadeDTO> GetAllActivityById(int idAtividade)
+        public async Task<Atividade> GetAllActivityById(int idAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = await _kanbanGestaoDb.Atividades.FindAsync(idAtividade);
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

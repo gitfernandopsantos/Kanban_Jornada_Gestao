@@ -4,6 +4,8 @@ using ApiKanbanGestao.Interfaces.IService;
 using ApiKanbanGestao.Repository;
 using ApiKanbanGestao.Service;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<KanbanGestaoDbContext>(options =>
-        options.UseNpgsql("Host=127.0.0.1;Database=postgres;Username=postgres;Password=TesteKanban@2345;Port=5432;Pooling=true;"));
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "KanbanGestaoController.API", Version = "v1", Description = "Gerenciamento de tarefas" });
+});
+builder.Services.AddDbContext<KanbanGestaoDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<IAtividadeRepository,AtividadeRepository>();
 builder.Services.AddScoped<IColunaRepository,ColunaRepository>();
 builder.Services.AddScoped<IColunaXAtividadeRepository, ColunaXAtividadeRepository>();
-builder.Services.AddScoped<IApplicationService, ApplicationService>();
 
 var app = builder.Build();
 
