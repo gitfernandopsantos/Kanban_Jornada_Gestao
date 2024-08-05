@@ -8,7 +8,7 @@ namespace ApiKanbanGestao.DataDbContext.Map
     {
         public void Configure(EntityTypeBuilder<Coluna> builder)
         {
-            builder.ToTable(nameof(Coluna), "public");
+            builder.ToTable("Colunas", "public");
             builder.HasKey(x => x.IdColuna);
             builder.Property(x => x.Nome).IsRequired().HasMaxLength(50);
         }

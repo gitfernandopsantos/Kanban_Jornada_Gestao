@@ -26,7 +26,6 @@ namespace ApiKanbanGestao.Controllers
         {
             try
             {
-               
                 var service = _applicationService;
                 if (service != null)
                 {

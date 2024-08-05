@@ -17,15 +17,17 @@ namespace ApiKanbanGestao.Service
             _colunaRepository = colunaRepository;
             _colunaXAtividadeRepository = colunaXAtividadeRepository;
         }
+
+        #region Activity
         public Task<Atividade> AddActivity(Atividade atividade)
         {
             try
             {
                 if (_atividadeRepository != null)
                 {
-
+                    _atividadeRepository.AddActivity(atividade);
                 }
-                throw new Exception("Não foi possível encontrar o repositório.");
+                throw new InvalidOperationException("Repositório de atividades não está inicializado.");
             }
             catch (Exception ex)
             {
@@ -35,44 +37,41 @@ namespace ApiKanbanGestao.Service
 
         }
 
-        public Task<ColunaDTO> AddColumn(ColunaXAtividade coluna)
+        public Task<Atividade> UpdateActivity(Atividade atividade, int idAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (_atividadeRepository == null)
+                {
+                    throw new InvalidOperationException("Repositório de atividades não está inicializado.");
+                }
+
+                var atividadeAtualizada = _atividadeRepository.UpdateActivity(atividade, idAtividade);
+                return atividadeAtualizada;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
-        public Task<ColunaXAtividadeDTO> AddColumnXActivity(ColunaXAtividade colunaXAtividade)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<bool> DeleteActivity(int idAtividade)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteColumn(int idColuna)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteColumnXActivity(int idColunaXAtividade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<AtividadeDTO> EditActivity(Atividade atividade, int idAtividade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ColunaDTO> EditColumn(ColunaXAtividade coluna, int idColuna)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ColunaXAtividadeDTO> EditColumnXActivity(ColunaXAtividade colunaXAtividade, int idColunaXAtividade)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                if (_atividadeRepository == null)
+                {
+                    throw new InvalidOperationException("Repositório de atividades não está inicializado.");
+                }
+                Task<bool> valorDaAtividadeDeletado = _atividadeRepository.DeleteActivity(idAtividade);
+                return valorDaAtividadeDeletado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Task<List<Atividade>> GetAllActivity()
@@ -111,7 +110,7 @@ namespace ApiKanbanGestao.Service
                         throw new Exception("Por favor, insira um ID válido.");
                     }
                     var activity = _atividadeRepository.GetAllActivityById(idAtividade);
-                    if(activity.Result == null && activity.IsCompletedSuccessfully == true)
+                    if (activity.Result == null && activity.IsCompletedSuccessfully == true)
                     {
                         throw new Exception("Desculpe, não encontramos essa atividade no banco de dados.");
                     }
@@ -119,19 +118,54 @@ namespace ApiKanbanGestao.Service
                 }
                 throw new Exception("Não foi possível encontrar o repositório");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
         }
+        #endregion
 
+
+        #region Methods Column
+        public Task<ColunaDTO> AddColumn(ColunaXAtividade coluna)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteColumn(int idColuna)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ColunaDTO> EditColumn(ColunaXAtividade coluna, int idColuna)
+        {
+            throw new NotImplementedException();
+        }
         public Task<ColunaDTO> GetAllColumnById(int idAtividade)
         {
             throw new NotImplementedException();
         }
 
         public Task<List<ColunaDTO>> GetAllColumns()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Methods Column X Activity
+        public Task<ColunaXAtividadeDTO> AddColumnXActivity(ColunaXAtividade colunaXAtividade)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteColumnXActivity(int idColunaXAtividade)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ColunaXAtividadeDTO> EditColumnXActivity(ColunaXAtividade colunaXAtividade, int idColunaXAtividade)
         {
             throw new NotImplementedException();
         }
@@ -145,5 +179,6 @@ namespace ApiKanbanGestao.Service
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

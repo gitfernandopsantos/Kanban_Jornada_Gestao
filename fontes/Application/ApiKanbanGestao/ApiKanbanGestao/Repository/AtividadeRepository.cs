@@ -13,19 +13,60 @@ namespace ApiKanbanGestao.Repository
         {
             _kanbanGestaoDb = kanbanGestaoDbContext;
         }
-        public Task<Atividade> AddActivity(Atividade atividade)
+        public async Task<Atividade> AddActivity(Atividade atividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var atividadeAdicionada = _kanbanGestaoDb.Add(atividade);
+
+                if (atividadeAdicionada == null || atividadeAdicionada.Entity == null)
+                {
+                    throw new DbUpdateException("Não foi possível adicionar essa atividade ao banco de dados.");
+                }
+
+                await _kanbanGestaoDb.SaveChangesAsync();
+                return atividadeAdicionada.Entity;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao adicionar a atividade.", ex);
+            }
         }
+
 
         public Task<bool> DeleteActivity(int idAtividade)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<AtividadeDTO> EditActivity(Atividade atividade, int idAtividade)
+        public async Task<Atividade> UpdateActivity(Atividade atividade, int idAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var atividadeExistente = await _kanbanGestaoDb.Atividades.FindAsync(idAtividade);
+
+                if (atividadeExistente == null)
+                {
+                    throw new KeyNotFoundException("A atividade especificada não foi encontrada.");
+                }
+
+                _kanbanGestaoDb.Entry(atividadeExistente).CurrentValues.SetValues(atividade);
+                await _kanbanGestaoDb.SaveChangesAsync();
+
+                return atividadeExistente;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao atualizar a atividade.", ex);
+            }
         }
 
         public async Task<List<Atividade>> GetAllActivity()
