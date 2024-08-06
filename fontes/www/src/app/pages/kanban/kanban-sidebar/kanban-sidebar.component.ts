@@ -1,8 +1,6 @@
 import { Component, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { KanbanCard, Comment, ListName, Task } from '../../../../models/kanban';
-import { Member } from '../../../../models/member';
 import { KanbanAppComponent } from '../kanban.app.component';
-import { MemberService } from '../../../../services/member.service';
 import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { KanbanService } from '../../../../services/kanban.service';
@@ -19,10 +17,6 @@ export class KanbanSidebarComponent implements OnDestroy {
     formValue!: KanbanCard;
 
     listId: string = '';
-
-    filteredAssignees: Member[] = [];
-
-    assignees: Member[] = [];
 
     newComment: Comment = { id: '123', name: 'Jane Cooper', text: '' };
 
@@ -50,8 +44,7 @@ export class KanbanSidebarComponent implements OnDestroy {
 
     @ViewChild('inputTaskListTitle') inputTaskListTitle!: ElementRef;
 
-    constructor(public parent: KanbanAppComponent, private memberService: MemberService, private kanbanService: KanbanService) {
-        this.memberService.getMembers().then(members => this.assignees = members);
+    constructor(public parent: KanbanAppComponent, private kanbanService: KanbanService) {
 
         this.cardSubscription = this.kanbanService.selectedCard$.subscribe(data => {
             this.card = data;
@@ -72,20 +65,6 @@ export class KanbanSidebarComponent implements OnDestroy {
     close() {
         this.parent.sidebarVisible = false;
         this.resetForm();
-    }
-
-    filterAssignees(event: any) {
-        let filtered: Member[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < this.assignees.length; i++) {
-            let assignee = this.assignees[i];
-            if (assignee.name && assignee.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(assignee);
-            }
-        }
-
-        this.filteredAssignees = filtered;
     }
 
     onComment(event: Event) {
@@ -118,25 +97,12 @@ export class KanbanSidebarComponent implements OnDestroy {
         this.formValue = { id: '', taskList: { title: 'Untitled Task List', tasks: [] } };
     }
 
-    addTaskList() {
-        this.showTaskContainer = !this.showTaskContainer;
-
-        if (!this.showTaskContainer) {
-            return;
-        }
-        else if (!this.formValue.taskList) {
-            let id = this.kanbanService.generateId();
-            this.formValue = { ...this.formValue, taskList: { id: id, title: 'Untitled Task List', tasks: [] } };
-        }
-    }
-
     addTask(event: Event) {
         event.preventDefault();
         if (this.taskContent.trim().length > 0) {
             this.newTask = { text: this.taskContent, completed: false };
             this.formValue.taskList?.tasks.unshift(this.newTask);
             this.taskContent = '';
-            this.calculateProgress();
         }
     }
 
@@ -146,13 +112,6 @@ export class KanbanSidebarComponent implements OnDestroy {
         }
         if (arg == 2) {
             this.timeout = setTimeout(() => this.inputTaskListTitle.nativeElement.focus(), 1);
-        }
-    }
-
-    calculateProgress() {
-        if (this.formValue.taskList) {
-            let completed = this.formValue.taskList.tasks.filter(t => t.completed).length;
-            this.formValue.progress = Math.round(100 * (completed / this.formValue.taskList.tasks.length));
         }
     }
 

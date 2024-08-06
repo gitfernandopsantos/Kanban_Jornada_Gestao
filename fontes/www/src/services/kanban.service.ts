@@ -43,7 +43,7 @@ export class KanbanService {
 
     addList() {
         const listId = this.generateId();
-        const title = "Untitled List";
+        const title = "Clique aqui, para mudar o nome da coluna";
         const newList = {
             listId: listId,
             title: title,
@@ -56,7 +56,7 @@ export class KanbanService {
 
     addCard(listId: string) {
         const cardId = this.generateId();
-        const title = "Untitled card";
+        const title = "Clique aqui, para mudar o nome da atividade";
         const newCard = { id: cardId, title: title, description: '', progress: '', assignees: [], attachments: 0, comments: [], startDate: '', dueDate: '', completed: false, taskList: { title: 'Untitled Task List', tasks: [] } };
 
         let lists = [];

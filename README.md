@@ -1,9 +1,6 @@
 # Kanban_Jornada_Gestao
 Desafio Full Stack Developer
 
-Descrição do Desafio
-Este desafio foi projetado para avaliar suas habilidades e competências no desenvolvimento de aplicações Full Stack. Você será responsável pela criação de uma aplicação web completa que permita a gestão de uma Lista de Tarefas, envolvendo tanto a construção do frontend quanto do backend.
-
 # Objetivo
 Desenvolver uma aplicação web interativa e responsiva que permita aos usuários gerenciar suas tarefas diárias. A aplicação deve incluir funcionalidades de cadastro, edição, remoção e filtragem de tarefas, além de exibir a lista de tarefas com seus respectivos status.
 
@@ -35,3 +32,9 @@ Documentação: O README.md deve fornecer informações claras sobre o projeto e
 Commits: Mensagens de commit bem descritas que refletem as alterações feitas no projeto.
 Desafio Adicional: Expedição Kanban - Jornada de Gestão
 Para tornar o desafio ainda mais interessante, você será convidado a implementar um sistema Kanban simples como parte do gerenciador de tarefas. Isso envolve adicionar funcionalidades para mover tarefas entre diferentes colunas de status (ex: "A Fazer", "Em Progresso", "Concluído").
+![WhatsApp Image 2024-08-05 at 22 10 43](https://github.com/user-attachments/assets/251b9525-58e1-44cf-b5ba-ab0cab13ea55)
+![WhatsApp Image 2024-08-05 at 22 10 29](https://github.com/user-attachments/assets/b52a6c35-b76a-4412-9a9b-70a7defcca22)
+![WhatsApp Image 2024-08-05 at 22 10 16](https://github.com/user-attachments/assets/84588191-91d2-4182-9c3b-a08788c476ea)
+![WhatsApp Image 2024-08-05 at 22 09 36](https://github.com/user-attachments/assets/ee1670d0-9235-4f2c-8fbb-1b45948b74aa)
+![WhatsApp Image 2024-08-05 at 22 08 37](https://github.com/user-attachments/assets/af10eb57-8425-477a-9358-c2b98ae99f12)
+
