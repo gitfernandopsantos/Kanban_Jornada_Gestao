@@ -17,9 +17,8 @@ namespace ApiKanbanGestao.Entity
         [Required]
         public DateTime DataFim { get; set; }
 
-        public Atividade(int idAtividade, string nome, string descricao, DateTime dataCriacao, DateTime dataInicio, DateTime dataFim)
+        public Atividade(string nome, string descricao, DateTime dataCriacao, DateTime dataInicio, DateTime dataFim)
         {
-            IdAtividade = idAtividade;
             Nome = nome;
             Descricao = descricao;
             DataCriacao = dataCriacao;

@@ -39,7 +39,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Conexão banco PostgreSQL
 builder.Services.AddDbContext<KanbanGestaoDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresPcEmpresa")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
 // Adiciona dependências para injeção de dependência.
 builder.Services.AddScoped<IApplicationService, ApplicationService>();

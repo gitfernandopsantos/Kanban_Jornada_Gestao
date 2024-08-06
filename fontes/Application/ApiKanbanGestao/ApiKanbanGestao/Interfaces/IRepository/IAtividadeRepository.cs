@@ -8,8 +8,8 @@ namespace ApiKanbanGestao.Interfaces.IRepository
         
         Task<List<Atividade>> GetAllActivity();
         Task<Atividade> GetAllActivityById(int idAtividade);
-        Task<Atividade> AddActivity(Atividade atividade);
-        Task<Atividade> UpdateActivity(Atividade atividade, int idAtividade);
+        Task<Atividade> AddActivity(AtividadeDTO atividade);
+        Task<Atividade> UpdateActivity(AtividadeDTO atividade, int idAtividade);
         Task<bool> DeleteActivity(int idAtividade);
     }
 }

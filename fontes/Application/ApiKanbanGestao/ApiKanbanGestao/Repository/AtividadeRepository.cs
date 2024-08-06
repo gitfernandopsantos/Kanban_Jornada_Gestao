@@ -13,18 +13,21 @@ namespace ApiKanbanGestao.Repository
         {
             _kanbanGestaoDb = kanbanGestaoDbContext;
         }
-        public async Task<Atividade> AddActivity(Atividade atividade)
+        public async Task<Atividade> AddActivity(AtividadeDTO atividadeDto)
         {
             try
             {
-                var atividadeAdicionada = _kanbanGestaoDb.Add(atividade);
+                var atividadeEntity = new Atividade(atividadeDto.Nome, atividadeDto.Descricao, atividadeDto.DataCriacao, atividadeDto.DataInicio, atividadeDto.DataFim);
+
+                var atividadeAdicionada = await _kanbanGestaoDb.AddAsync(atividadeEntity);
 
                 if (atividadeAdicionada == null || atividadeAdicionada.Entity == null)
                 {
                     throw new DbUpdateException("Não foi possível adicionar essa atividade ao banco de dados.");
                 }
 
-                await _kanbanGestaoDb.SaveChangesAsync();
+                _kanbanGestaoDb.SaveChanges();
+
                 return atividadeAdicionada.Entity;
             }
             catch (DbUpdateException dbEx)
@@ -37,13 +40,7 @@ namespace ApiKanbanGestao.Repository
             }
         }
 
-
-        public Task<bool> DeleteActivity(int idAtividade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Atividade> UpdateActivity(Atividade atividade, int idAtividade)
+        public async Task<bool> DeleteActivity(int idAtividade)
         {
             try
             {
@@ -54,10 +51,41 @@ namespace ApiKanbanGestao.Repository
                     throw new KeyNotFoundException("A atividade especificada não foi encontrada.");
                 }
 
-                _kanbanGestaoDb.Entry(atividadeExistente).CurrentValues.SetValues(atividade);
+                var atividadeDeletado = _kanbanGestaoDb.Atividades.Remove(atividadeExistente);
                 await _kanbanGestaoDb.SaveChangesAsync();
+                if (atividadeDeletado.Entity != null) 
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao deletar a atividade.", ex);
+            }
+        }
 
-                return atividadeExistente;
+
+        public async Task<Atividade> UpdateActivity(AtividadeDTO atividadeDto, int idAtividade)
+        {
+            try
+            {
+                var atividadeExistente = await _kanbanGestaoDb.Atividades.FindAsync(idAtividade);
+
+                if (atividadeExistente == null)
+                {
+                    throw new KeyNotFoundException("A atividade especificada não foi encontrada.");
+                }
+
+                _kanbanGestaoDb.Entry(atividadeExistente).CurrentValues.SetValues(atividadeDto);
+                await _kanbanGestaoDb.SaveChangesAsync();
+                var atividade = new Atividade(atividadeDto.Nome, atividadeDto.Descricao, atividadeDto.DataCriacao, atividadeDto.DataInicio, atividadeDto.DataFim);
+                atividade.IdAtividade = idAtividade;
+                return atividade;
             }
             catch (DbUpdateException dbEx)
             {

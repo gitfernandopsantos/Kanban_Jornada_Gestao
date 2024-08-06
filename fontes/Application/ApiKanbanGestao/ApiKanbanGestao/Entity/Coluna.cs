@@ -5,9 +5,8 @@
         public int IdColuna { get; set; }
         public string Nome { get; set; }
 
-        public Coluna(int idColuna, string nome)
+        public Coluna(string nome)
         {
-            IdColuna = idColuna;
             Nome = nome;
         }
     }

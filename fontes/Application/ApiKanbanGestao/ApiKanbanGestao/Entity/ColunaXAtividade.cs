@@ -8,5 +8,11 @@
         public virtual Atividade Atividade { get; set; }
         public virtual Coluna Coluna { get; set; }
 
+        public ColunaXAtividade(int colunaId, int atividadeId)
+        {
+            AtividadeId = atividadeId;
+            ColunaId = colunaId;
+        }
+
     }
 }

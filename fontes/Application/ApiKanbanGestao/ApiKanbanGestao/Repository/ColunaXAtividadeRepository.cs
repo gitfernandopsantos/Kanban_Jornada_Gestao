@@ -2,6 +2,7 @@
 using ApiKanbanGestao.Dtos;
 using ApiKanbanGestao.Entity;
 using ApiKanbanGestao.Interfaces.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiKanbanGestao.Repository
 {
@@ -13,29 +14,116 @@ namespace ApiKanbanGestao.Repository
         {
             _kanbanGestaoDb = kanbanGestaoDbContext;
         }
-        public Task<ColunaXAtividadeDTO> AddColumnXActivity(ColunaXAtividade colunaXAtividade)
+
+        public async Task<ColunaXAtividade> AddColumnXActivity(ColunaXAtividadeDTO colunaXAtividadeDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var colunaXAtividadeEntity = new ColunaXAtividade(colunaXAtividadeDto.ColunaId, colunaXAtividadeDto.AtividadeId);
+
+                var colunaXAtividadeAdicionada = await _kanbanGestaoDb.ColunasXAtividades.AddAsync(colunaXAtividadeEntity);
+
+                if (colunaXAtividadeAdicionada == null || colunaXAtividadeAdicionada.Entity == null)
+                {
+                    throw new DbUpdateException("Não foi possível adicionar essa relação ao banco de dados.");
+                }
+
+                await _kanbanGestaoDb.SaveChangesAsync();
+
+                return colunaXAtividadeAdicionada.Entity;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao adicionar a relação de coluna e atividade.", ex);
+            }
         }
 
-        public Task<bool> DeleteColumnXActivity(int idColunaXAtividade)
+        public async Task<bool> DeleteColumnXActivity(int idColunaXAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var colunaXAtividadeExistente = await _kanbanGestaoDb.ColunasXAtividades.FindAsync(idColunaXAtividade);
+
+                if (colunaXAtividadeExistente == null)
+                {
+                    throw new KeyNotFoundException("A relação de coluna e atividade especificada não foi encontrada.");
+                }
+
+                _kanbanGestaoDb.ColunasXAtividades.Remove(colunaXAtividadeExistente);
+                await _kanbanGestaoDb.SaveChangesAsync();
+
+                return true;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao deletar a relação de coluna e atividade.", ex);
+            }
         }
 
-        public Task<ColunaXAtividadeDTO> EditColumnXActivity(ColunaXAtividade colunaXAtividade, int idColunaXAtividade)
+        public async Task<ColunaXAtividade> UpdateColumnXActivity(ColunaXAtividadeDTO colunaXAtividadeDto, int idColunaXAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var colunaXAtividadeExistente = await _kanbanGestaoDb.ColunasXAtividades.FindAsync(idColunaXAtividade);
+
+                if (colunaXAtividadeExistente == null)
+                {
+                    throw new KeyNotFoundException("A relação de coluna e atividade especificada não foi encontrada.");
+                }
+
+                _kanbanGestaoDb.Entry(colunaXAtividadeExistente).CurrentValues.SetValues(colunaXAtividadeDto);
+                await _kanbanGestaoDb.SaveChangesAsync();
+
+                return colunaXAtividadeExistente;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new DbUpdateException("Erro ao atualizar o banco de dados.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao atualizar a relação de coluna e atividade.", ex);
+            }
         }
 
-        public Task<List<ColunaXAtividadeDTO>> GetAllColumnsXActivity()
+        public async Task<List<ColunaXAtividade>> GetAllColumnsXActivity()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = await _kanbanGestaoDb.ColunasXAtividades
+                 .Include(cxa => cxa.Coluna)
+                 .Include(cxa => cxa.Atividade)
+                 .ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<ColunaXAtividadeDTO> GetAllColumnXActivityById(int idColunaXAtividade)
+        public async Task<ColunaXAtividade> GetAllColumnXActivityById(int idColunaXAtividade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = await _kanbanGestaoDb.ColunasXAtividades
+                    .Include(cxa => cxa.Coluna)
+                    .Include(cxa => cxa.Atividade)
+                    .FirstOrDefaultAsync(cxa => cxa.IdColunaXAtividade == idColunaXAtividade);
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
