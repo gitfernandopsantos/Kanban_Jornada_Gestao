@@ -37,4 +37,10 @@ Para tornar o desafio ainda mais interessante, você será convidado a implement
 ![WhatsApp Image 2024-08-05 at 22 10 16](https://github.com/user-attachments/assets/84588191-91d2-4182-9c3b-a08788c476ea)
 ![WhatsApp Image 2024-08-05 at 22 09 36](https://github.com/user-attachments/assets/ee1670d0-9235-4f2c-8fbb-1b45948b74aa)
 ![WhatsApp Image 2024-08-05 at 22 08 37](https://github.com/user-attachments/assets/af10eb57-8425-477a-9358-c2b98ae99f12)
+![Captura de tela 2024-08-05 224328](https://github.com/user-attachments/assets/fc70d436-3e82-4946-8e88-1380a9aed48f)
+![Captura de tela 2024-08-05 224358](https://github.com/user-attachments/assets/cc61cc0f-881d-4c11-8ad4-cd56986cb3a7)
+![Captura de tela 2024-08-05 224411](https://github.com/user-attachments/assets/3fd161ef-05e8-4609-9674-468e29fb5d42)
+
+
+
 
